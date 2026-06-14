@@ -1,31 +1,19 @@
-name: Pump.fun Monitor Bot - Shift 4 (6 PM - 12 AM)
+name: Pump.fun Profit Bot - Shift 4 (6 PM - 12 AM)
 
 on:
-  workflow_dispatch:               # Manual trigger
   schedule:
-    - cron: '0 18 * * *'           # 6:00 PM IST (if timezone set) else UTC
-    timezone: "Asia/Kolkata"       # 2026 mein supported hai
+    - cron: '0 18 * * *'
+    timezone: "Asia/Kolkata"
+  workflow_dispatch:
 
 jobs:
   monitor:
     runs-on: ubuntu-latest
     timeout-minutes: 360
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-
-      - name: Install dependencies
-        run: |
-          pip install --upgrade pip
-          pip install aiohttp websockets python-telegram-bot
-
-      - name: Run Pump.fun Monitor
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: python pump_monitor.py
+      - run: pip install aiohttp websockets python-telegram-bot
+      - run: python monitor_and_report.py
