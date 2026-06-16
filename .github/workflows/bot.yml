@@ -1,4 +1,4 @@
-name: Pump.fun Profit Bot - Shift 4 (6 PM - 12 AM)
+name: Pump.fun Monitor - Shift 4 (6 PM - 12 AM)
 
 on:
   schedule:
@@ -15,5 +15,5 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: pip install aiohttp websockets python-telegram-bot
-      - run: python monitor_and_report.py
+      - run: pip install aiohttp python-telegram-bot
+      - run: python monitor.py
